@@ -1,0 +1,17 @@
+{
+    "server": {
+        "port": 3000
+    },
+    "db": {
+        "host": "localhost",
+        "user": "root",
+        "password": "Emiolo123*",
+        "database": "weebbot"
+    },
+    "discord": {
+        "clientID": "347766221111951377",
+        "clientSecret": "5KDmQJA1qMt9uhpZpVRHATmhXBegRdnK",
+        "callbackURL": "http://localhost:3000/api/auth/discord/callback",
+        "scope": ["guilds", "identify"]
+    }
+}
