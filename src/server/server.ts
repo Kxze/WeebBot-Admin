@@ -14,11 +14,6 @@ const db = knex({
     connection: config.db
 });
 
-db.schema.createTable("alerts", (table) => {
-    table.increments("id");
-    table.string("user_name");
-});
-
 // Middlewares
 server.use(cookieParser());
 server.use(session({
