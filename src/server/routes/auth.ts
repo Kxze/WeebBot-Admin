@@ -25,9 +25,6 @@ export default ({ server, db, config }: Router) => {
         done(null, user);
     });
 
-    server.get("/", (req, res) => {
-        console.log("hello!");
-    });
     server.get("/api/auth/discord", passport.authenticate('discord', { scope: config.discord.scopes }));
     server.get('/api/auth/discord/callback', passport.authenticate('discord'), (req, res) => {
         res.json(req.user);
