@@ -18,7 +18,11 @@ interface User {
     mfa_enabled: Boolean;
     id: String;
     avatar: String;
+}
+
+interface Profile extends User {
     guilds: Guild[];
+    avatarUrl?: String;
 }
 
 interface DbUser {
@@ -27,58 +31,23 @@ interface DbUser {
     discordId: String;
 }
 
-const getUserData = async (user: any, res: any): Promise<User> => {
-    let response;
-    // Get user data
-    response = await fetch("https://discordapp.com/api/users/@me", {
-        headers: { Authorization: "Bearer " + user.token }
-    });
-    if (response.status !== 200) {
-        return res.status(500).json({ error: await response.json() });
-    }
-
-    const userData = await response.json();
-
-    // Get user guilds
-    response = await fetch("https://discordapp.com/api/users/@me/guilds", {
-        headers: { Authorization: "Bearer " + user.token }
-    });
-    if (response.status !== 200) {
-        return res.status(500).json({ error: await response.json() });
-    }
-
-    const userGuilds: Guild[] = (await response.json()).filter((guild: Guild) => guild.owner === true);
-
-    return {
-        ...userData,
-        guilds: userGuilds,
-    };
-};
-
 export default ({ server, db, config }: Router) => {
 
     passport.use(new Strategy(config.discord, async (accessToken: string, refreshToken: string, profile: any, done: Function) => {
-        const dbUser = await db("users").where({ discordId: profile.id });
-        if (dbUser.length > 0) {
-            // Update token
-            await db("users").update({ token: accessToken }).where({ discordId: profile.id });
 
-            const newDbUser = (await db("users").where({ discordId: profile.id }))[0];
-            done(null, newDbUser);
-        } else {
-            await db("users").insert({ discordId: profile.id, token: accessToken });
-
-            const user = (await db("users").where({ discordId: profile.id }))[0];
-            done(null, user);
-        }
+        done(null, {
+            ...profile,
+            accessToken: undefined,
+            avatar: `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}`,
+            guilds: profile.guilds.filter((guild: Guild) => guild.owner === true),
+        });
     }));
 
     passport.serializeUser((user: any, done) => {
-        done(null, user.id);
+        done(null, user);
     });
 
-    passport.deserializeUser(async (id, done) => {
-        const user = (await db("users").where({ id }))[0];
+    passport.deserializeUser((user, done) => {
         done(null, user);
     });
 
@@ -90,17 +59,14 @@ export default ({ server, db, config }: Router) => {
     server.get("/api/me", async (req, res) => {
         if (!req.user) { return res.status(401).json({ error: "Log in" }); }
 
-        const userData = await getUserData(req.user, res);
-
-        return res.json();
+        return res.json(req.user);
     });
 
     server.put("/api/guild/", async (req, res) => {
         if (!req.user) { return res.status(401).json({ error: "Log in" }); }
         if (!req.body || !req.body.guild || !req.body.ships) { return res.status(400).send(); }
 
-        const user = await getUserData(req.user, res);
-        if (!user.guilds.some(guild => guild.id === req.body.guild)) {
+        if (!req.user.guilds.some((guild: Guild) => guild.id === req.body.guild)) {
             return res.status(403).json({ error: "Not the owner" });
         }
 
