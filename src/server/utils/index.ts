@@ -1,5 +1,1 @@
-import { syncDatabase } from "./syncDatabase";
-
-export {
-    syncDatabase
-};
+export { syncDatabase } from "./syncDatabase";

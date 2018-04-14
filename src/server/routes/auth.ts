@@ -34,7 +34,6 @@ interface DbUser {
 export default ({ server, db, config }: Router) => {
 
     passport.use(new Strategy(config.discord, async (accessToken: string, refreshToken: string, profile: any, done: Function) => {
-
         done(null, {
             ...profile,
             accessToken: undefined,
@@ -53,7 +52,7 @@ export default ({ server, db, config }: Router) => {
 
     server.get("/api/auth/discord", passport.authenticate('discord', { scope: config.discord.scopes }));
     server.get('/api/auth/discord/callback', passport.authenticate('discord'), (req, res) => {
-        res.redirect("/api/me");
+        res.redirect("http://localhost:8080/");
     });
 
     server.get("/api/me", async (req, res) => {
@@ -64,7 +63,7 @@ export default ({ server, db, config }: Router) => {
 
     server.put("/api/guild/", async (req, res) => {
         if (!req.user) { return res.status(401).json({ error: "Log in" }); }
-        if (!req.body || !req.body.guild || !req.body.ships) { return res.status(400).send(); }
+        if (!req.body || !req.body.guild || !req.body.channels || !req.body.ships) { return res.status(400).send(); }
 
         if (!req.user.guilds.some((guild: Guild) => guild.id === req.body.guild)) {
             return res.status(403).json({ error: "Not the owner" });

@@ -1,11 +1,6 @@
 import * as React from 'react';
+import { connect } from "react-redux";
 import { Form, Checkbox, Button } from 'semantic-ui-react';
-
-const servers = [
-    { key: 'w', text: 'Weeb Bot', value: 'male' },
-    { key: 'h', text: 'Hitbox Dimension', value: 'female' },
-    { key: 'z', text: 'Programming Discussions', value: 'femalasdf' },
-];
 
 const channels = [
     { key: 'g', text: '#general', value: 'male' },
@@ -18,51 +13,58 @@ const channels = [
     { key: 'bgfw', text: '#real-talk', value: 'maQWSsqwle' },
 ];
 
-class Settings extends React.Component {
-    render() {
-        return (
-            <Form>
-                <Form.Group widths="equal">
-                    <Form.Select fluid={true} options={servers} label="Serve" placeholder="Server" />
-                    <Form.Select fluid={true} options={channels} label="Channel" placeholder="Channel" />
-                </Form.Group>
-                <Form.Field>
-                    <b>Ships:</b>
-                </Form.Field>
-                <Form.Field>
-                    <Checkbox toggle={true} label={<label>Ship 01</label>} />
-                </Form.Field>
-                <Form.Field>
-                    <Checkbox toggle={true} label={<label>Ship 02</label>} />
-                </Form.Field>
-                <Form.Field>
-                    <Checkbox toggle={true} label={<label>Ship 03</label>} />
-                </Form.Field>
-                <Form.Field>
-                    <Checkbox toggle={true} label={<label>Ship 04</label>} />
-                </Form.Field>
-                <Form.Field>
-                    <Checkbox toggle={true} label={<label>Ship 05</label>} />
-                </Form.Field>
-                <Form.Field>
-                    <Checkbox toggle={true} label={<label>Ship 06</label>} />
-                </Form.Field>
-                <Form.Field>
-                    <Checkbox toggle={true} label={<label>Ship 07</label>} />
-                </Form.Field>
-                <Form.Field>
-                    <Checkbox toggle={true} label={<label>Ship 08</label>} />
-                </Form.Field>
-                <Form.Field>
-                    <Checkbox toggle={true} label={<label>Ship 09</label>} />
-                </Form.Field>
-                <Form.Field>
-                    <Checkbox toggle={true} label={<label>Ship 10</label>} />
-                </Form.Field>
-                <Button type="submit">Save</Button>
-            </Form>
-        );
-    }
-}
+const Settings = ({ user }: any) => {
 
-export default Settings;
+    const getServers = () => {
+        if (!user.guilds) { return []; }
+        return user.guilds.map((guild: any) => ({ key: guild.id, text: guild.name, value: guild.id }));
+    };
+
+    return (
+        <Form>
+            <Form.Group widths="equal">
+                <Form.Select fluid={true} options={getServers()} label="Server" placeholder="Server" />
+                <Form.Select fluid={true} options={channels} label="Channel" placeholder="Channel" />
+            </Form.Group>
+            <Form.Field>
+                <b>Ships:</b>
+            </Form.Field>
+            <Form.Field>
+                <Checkbox toggle={true} label={<label>Ship 01</label>} />
+            </Form.Field>
+            <Form.Field>
+                <Checkbox toggle={true} label={<label>Ship 02</label>} />
+            </Form.Field>
+            <Form.Field>
+                <Checkbox toggle={true} label={<label>Ship 03</label>} />
+            </Form.Field>
+            <Form.Field>
+                <Checkbox toggle={true} label={<label>Ship 04</label>} />
+            </Form.Field>
+            <Form.Field>
+                <Checkbox toggle={true} label={<label>Ship 05</label>} />
+            </Form.Field>
+            <Form.Field>
+                <Checkbox toggle={true} label={<label>Ship 06</label>} />
+            </Form.Field>
+            <Form.Field>
+                <Checkbox toggle={true} label={<label>Ship 07</label>} />
+            </Form.Field>
+            <Form.Field>
+                <Checkbox toggle={true} label={<label>Ship 08</label>} />
+            </Form.Field>
+            <Form.Field>
+                <Checkbox toggle={true} label={<label>Ship 09</label>} />
+            </Form.Field>
+            <Form.Field>
+                <Checkbox toggle={true} label={<label>Ship 10</label>} />
+            </Form.Field>
+            <Button type="submit">Save</Button>
+        </Form>
+    );
+
+};
+
+export default connect((state: any) => ({
+    user: state.auth.user
+}))(Settings);
