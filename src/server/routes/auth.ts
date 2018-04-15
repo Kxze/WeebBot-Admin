@@ -61,6 +61,23 @@ export default ({ server, db, config }: Router) => {
         return res.json(req.user);
     });
 
+    server.get("/api/guild/:id", async (req, res) => {
+        if (!req.user) { return res.sendStatus(401); }
+
+        const data = await fetch(`https://discordapp.com/api/guilds/${req.params.id}/channels`, {
+            headers: {
+                "Authorization": "Bot " + config.bot.token,
+            }
+        });
+
+        if (data.status === 403) {
+            return res.status(403).json({ error: "Bot is not in the server" });
+        }
+
+        const jsonData = await data.json();
+        return res.send(jsonData);
+    });
+
     server.put("/api/guild/", async (req, res) => {
         if (!req.user) { return res.status(401).json({ error: "Log in" }); }
         if (!req.body || !req.body.guild || !req.body.channels || !req.body.ships) { return res.status(400).send(); }

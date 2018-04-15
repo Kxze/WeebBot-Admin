@@ -19,10 +19,15 @@ interface ServerConfigObject {
     port: Number;
 }
 
+interface BotConfigObject {
+    token: string;
+}
+
 interface ConfigObject {
     discord: DiscordConfigObject;
     server: ServerConfigObject;
     db: DatabaseConfigObject;
+    bot: BotConfigObject;
 }
 
 export interface Router {
