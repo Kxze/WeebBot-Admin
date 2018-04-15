@@ -75,7 +75,15 @@ export default ({ server, db, config }: Router) => {
         }
 
         const jsonData = await data.json();
-        return res.send(jsonData);
+        const responseData = jsonData
+            .filter((channel: any) => channel.type === 0)
+            .map((channel: any) => ({
+                key: channel.id,
+                value: channel.id,
+                text: "#" + channel.name,
+            }));
+
+        return res.send(responseData);
     });
 
     server.put("/api/guild/", async (req, res) => {

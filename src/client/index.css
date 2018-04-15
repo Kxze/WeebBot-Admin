@@ -1,3 +1,7 @@
 .layout {
   margin-top: 20px;
 }
+
+.ui.page.modals.transition.visible {
+  display: flex !important;
+}

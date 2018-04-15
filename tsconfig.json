@@ -9,7 +9,8 @@
 			"es2017",
 			"dom"
 		],
-		"jsx": "react"
+		"jsx": "react",
+		"noImplicitThis": false
 	},
 	"include": [
 		"src/**/*"

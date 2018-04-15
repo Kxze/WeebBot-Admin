@@ -24,7 +24,23 @@ export interface SidebarInfo {
     activeItem: string;
 }
 
+export interface Channel {
+    key: string;
+    value: string;
+    text: string;
+}
+
+export interface SettingsInfo {
+    channels: Channel[];
+}
+
+export interface GeneralInfo {
+    error?: string;
+}
+
 export interface State {
     auth: AuthenticationInfo;
     sidebar: SidebarInfo;
+    settings: SettingsInfo;
+    general: GeneralInfo;
 }
