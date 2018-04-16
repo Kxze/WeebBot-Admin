@@ -5,7 +5,7 @@ const initialState = {
 export const sidebar = (state = initialState, action: any) => {
     switch (action.type) {
         case "CHANGE_SIDEBAR_ITEM":
-            return action.item;
+            return { ...state, activeItem: action.item };
         default:
             return state;
     }
