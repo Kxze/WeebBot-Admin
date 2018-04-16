@@ -33,9 +33,13 @@ export const error = (message: string) => {
 export const login = (): any => {
     return async (dispatch: Dispatch<State>) => {
         try {
+            dispatch(toggleLoading());
+
             const data = await fetch("/api/me", {
                 credentials: "include"
             });
+
+            dispatch(toggleLoading());
             if (data.status === 200) {
                 const user = await data.json();
                 dispatch(setUser(user));
@@ -48,9 +52,13 @@ export const login = (): any => {
 
 export const getChannels = (serverId: string): any => {
     return async (dispatch: Dispatch<State>) => {
+        dispatch(toggleLoading());
+
         const data = await fetch("/api/guild/" + serverId, {
             credentials: "include"
         });
+
+        dispatch(toggleLoading());
 
         if (data.status === 200) {
             const jsonData = await data.json();
@@ -60,3 +68,7 @@ export const getChannels = (serverId: string): any => {
         }
     };
 };
+
+export const toggleLoading = () => ({
+    type: "TOGGLE_LOADING"
+});

@@ -36,6 +36,7 @@ export interface SettingsInfo {
 
 export interface GeneralInfo {
     error?: string;
+    loading: boolean;
 }
 
 export interface State {

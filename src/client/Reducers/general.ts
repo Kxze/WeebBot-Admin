@@ -1,13 +1,16 @@
 const initialState = {
-    error: ""
+    error: "",
+    loading: false,
 };
 
 export const general = (state = initialState, action: any) => {
     switch (action.type) {
         case "SET_ERROR":
-            return { error: action.message };
+            return { ...state, error: action.message };
         case "CLEAR_ERROR":
-            return { error: "" };
+            return { ...state, error: "" };
+        case "TOGGLE_LOADING":
+            return { ...state, loading: !state.loading }
         default:
             return state;
     }

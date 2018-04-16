@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect, Dispatch } from "react-redux";
 import { State, User } from "../types";
 import { login } from "../Actions";
-import { Grid, Container } from 'semantic-ui-react';
+import { Grid, Container, Dimmer, Loader } from 'semantic-ui-react';
 import UserCard from './UserCard';
 import SidebarMenu from './SidebarMenu';
 import LoginButton from './LoginButton';
@@ -25,6 +25,9 @@ class Layout extends React.Component<Props> {
                         </Grid.Column>
                         <Grid.Column width="9">
                             <Container>
+                                <Dimmer active={this.props.loading} page={true}>
+                                    <Loader>Loading...</Loader>
+                                </Dimmer>
                                 {this.props.children}
                             </Container>
                         </Grid.Column>
@@ -38,12 +41,14 @@ class Layout extends React.Component<Props> {
 interface Props {
     user: User;
     error: string | undefined;
+    loading: boolean;
     fetchUser: () => void;
 }
 
 const mapStateToProps = (state: State) => ({
     user: state.auth.user,
-    error: state.general.error
+    error: state.general.error,
+    loading: state.general.loading
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<State>) => ({
