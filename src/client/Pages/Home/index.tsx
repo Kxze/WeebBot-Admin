@@ -1,8 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import Warning from './Warning';
 
 const Home = ({ user }: any) => (
-    <p>{user.username}</p>
+    <div>
+        <Warning />
+        test
+    </div>
 );
 
 function mapStateToProps(state: any) {

@@ -1,6 +1,7 @@
 const initialState = {
     error: "",
     loading: false,
+    warning: undefined,
 };
 
 export const general = (state = initialState, action: any) => {
@@ -10,7 +11,9 @@ export const general = (state = initialState, action: any) => {
         case "CLEAR_ERROR":
             return { ...state, error: "" };
         case "TOGGLE_LOADING":
-            return { ...state, loading: !state.loading }
+            return { ...state, loading: !state.loading };
+        case "SET_WARNING":
+            return { ...state, warning: action.message };
         default:
             return state;
     }

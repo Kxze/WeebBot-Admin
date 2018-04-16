@@ -10,8 +10,11 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 import 'semantic-ui-css/semantic.min.css';
+import { login, getWarning } from './Actions';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(ReduxThunk)));
+store.dispatch(login());
+store.dispatch(getWarning());
 
 ReactDOM.render(
   <Provider store={store}>

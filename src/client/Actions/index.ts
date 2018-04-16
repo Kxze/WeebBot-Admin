@@ -30,6 +30,11 @@ export const error = (message: string) => {
     };
 };
 
+export const setWarning = (message: string) => ({
+    type: "SET_WARNING",
+    message
+});
+
 export const login = (): any => {
     return async (dispatch: Dispatch<State>) => {
         try {
@@ -68,6 +73,14 @@ export const getChannels = (serverId: string): any => {
         }
     };
 };
+
+export const getWarning = () => {
+    return async (dispatch: Dispatch<State>) => {
+        const data = await (await fetch("/api/warning")).json();
+        const warning = data.warning;
+        dispatch(setWarning(warning));
+    }
+}
 
 export const toggleLoading = () => ({
     type: "TOGGLE_LOADING"

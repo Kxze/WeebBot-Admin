@@ -9,10 +9,6 @@ import LoginButton from './LoginButton';
 import ErrorModal from "./ErrorModal";
 
 class Layout extends React.Component<Props> {
-    componentDidMount() {
-        this.props.fetchUser();
-    }
-
     render() {
         return (
             <div>
