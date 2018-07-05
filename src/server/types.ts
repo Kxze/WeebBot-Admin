@@ -5,6 +5,7 @@ interface DiscordConfigObject {
     clientID: string;
     clientSecret: string;
     callbackURL: string;
+    token: string;
     scopes: Array<string>;
 }
 
@@ -16,7 +17,7 @@ interface DatabaseConfigObject {
 }
 
 interface ServerConfigObject {
-    port: Number;
+    port: number;
 }
 
 interface BotConfigObject {
@@ -34,4 +35,11 @@ export interface Router {
     server: Express.Router;
     db: Knex;
     config: ConfigObject;
+}
+
+export interface IChannel {
+    id: number;
+    guildId: number;
+    channelId: number;
+    ships: string;
 }

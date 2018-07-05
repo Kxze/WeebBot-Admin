@@ -5,7 +5,8 @@ export const syncDatabase = async (db: Knex) => {
     if (!await db.schema.hasTable("alerts")) {
         await db.schema.createTable("alerts", (table) => {
             table.increments("id");
-            table.bigInteger("guildId");
+            table.string("guildId");
+            table.string("channelId");
             table.string("ships");
         });
     }

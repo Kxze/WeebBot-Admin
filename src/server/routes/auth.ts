@@ -1,34 +1,34 @@
-import { Router } from "../types";
+import { Router, IChannel } from "../types";
 import * as passport from "passport";
 import { Strategy } from "passport-discord";
 import fetch from "node-fetch";
 import { isNumber } from "util";
 
 interface Guild {
-    id: String;
-    name: String;
-    icon: String;
-    owner: Boolean;
-    permissions: Number;
+    id: string;
+    name: string;
+    icon: string;
+    owner: boolean;
+    permissions: number;
 }
 
 interface User {
-    username: String;
-    discriminator: String;
-    mfa_enabled: Boolean;
-    id: String;
-    avatar: String;
+    username: string;
+    discriminator: string;
+    mfa_enabled: boolean;
+    id: string;
+    avatar: string;
 }
 
 interface Profile extends User {
     guilds: Guild[];
-    avatarUrl?: String;
+    avatarUrl?: string;
 }
 
 interface DbUser {
-    id: Number;
-    token: String;
-    discordId: String;
+    id: number;
+    token: string;
+    discordId: string;
 }
 
 export default ({ server, db, config }: Router) => {
@@ -52,6 +52,7 @@ export default ({ server, db, config }: Router) => {
 
     server.get("/api/auth/discord", passport.authenticate('discord', { scope: config.discord.scopes }));
     server.get('/api/auth/discord/callback', passport.authenticate('discord'), (req, res) => {
+        // console.log(req);
         res.redirect("http://localhost:8080/");
     });
 
@@ -63,10 +64,11 @@ export default ({ server, db, config }: Router) => {
 
     server.get("/api/guild/:id", async (req, res) => {
         if (!req.user) { return res.sendStatus(401); }
+        console.log(req.params.id);
 
         const data = await fetch(`https://discordapp.com/api/guilds/${req.params.id}/channels`, {
             headers: {
-                "Authorization": "Bot " + config.bot.token,
+                "Authorization": "Bot " + config.discord.token,
             }
         });
 
@@ -74,14 +76,25 @@ export default ({ server, db, config }: Router) => {
             return res.status(403).json({ error: "Bot is not in the server" });
         }
 
+        const dbChannels = await db("alerts")
+            .select("*")
+            .where({
+                guildId: req.params.id
+            });
+
         const jsonData = await data.json();
         const responseData = jsonData
             .filter((channel: any) => channel.type === 0)
-            .map((channel: any) => ({
-                key: channel.id,
-                value: channel.id,
-                text: "#" + channel.name,
-            }));
+            .map((channel: any) => {
+                const alert = dbChannels.find((alert: IChannel) => alert.channelId == channel.id);
+
+                return {
+                    key: channel.id,
+                    value: channel.id,
+                    text: "#" + channel.name,
+                    ships: alert ? alert.ships.split(",").map(Number) : undefined,
+                };
+            });
 
         return res.send(responseData);
     });
