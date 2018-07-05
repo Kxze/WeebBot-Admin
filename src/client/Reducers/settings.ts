@@ -1,11 +1,14 @@
 const initialState = {
-    channels: []
+    channels: [],
+    ships: [],
 };
 
 export const settings = (state = initialState, action: any) => {
     switch (action.type) {
         case 'SET_CHANNELS':
-            return { channels: action.channels };
+            return { ...state, channels: action.channels };
+        case 'SET_SHIPS':
+            return { ...state, ships: action.ships };
         default:
             return state;
     }

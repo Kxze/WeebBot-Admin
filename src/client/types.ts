@@ -28,6 +28,7 @@ export interface Channel {
     key: string;
     value: string;
     text: string;
+    ships: number[];
 }
 
 export interface SettingsInfo {

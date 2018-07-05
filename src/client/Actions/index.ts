@@ -23,6 +23,13 @@ const setChannels = (channels: any) => {
     };
 };
 
+export const setShips = (ships: number[]) => {
+    return {
+        type: "SET_SHIPS",
+        ships
+    };
+};
+
 export const error = (message: string) => {
     return {
         type: "SET_ERROR",
