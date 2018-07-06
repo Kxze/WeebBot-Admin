@@ -2,16 +2,16 @@ import * as React from 'react';
 import { connect, Dispatch } from "react-redux";
 import { State, User } from "../types";
 import { Modal, Header, Button } from 'semantic-ui-react';
-import { error } from "../Actions";
+import { success } from "../Actions";
 
-const ErrorModal = ({ display, errorMessage, setError }: Props) => (
+const SuccessModal = ({ display, successMessage, setSuccess }: Props) => (
     <Modal basic={true} size="small" open={display}>
-        <Header icon="erase" content="Error" />
+        <Header icon="erase" content="Success!" />
         <Modal.Content>
-            {errorMessage}
+            {successMessage}
         </Modal.Content>
         <Modal.Actions>
-            <Button basic={true} color="red" inverted={true} onClick={() => setError("")}>
+            <Button basic={true} color="green" inverted={true} onClick={() => setSuccess("")}>
                 Close
             </Button>
         </Modal.Actions>
@@ -20,18 +20,18 @@ const ErrorModal = ({ display, errorMessage, setError }: Props) => (
 
 interface Props {
     display: boolean;
-    errorMessage: string;
-    setError: (message: string) => void;
+    successMessage: string;
+    setSuccess: (message: string) => void;
 }
 
 const mapStateToProps = (state: State) => ({
-    errorMessage: state.general.error,
+    successMessage: state.general.success,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<State>) => ({
-    setError: (message: string) => {
-        dispatch(error(message));
+    setSuccess: (message: string) => {
+        dispatch(success(message));
     } 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ErrorModal);
+export default connect(mapStateToProps, mapDispatchToProps)(SuccessModal);

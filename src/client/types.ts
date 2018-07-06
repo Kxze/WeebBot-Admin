@@ -39,7 +39,8 @@ export interface SettingsInfo {
 }
 
 export interface GeneralInfo {
-    error?: string;
+    error: string;
+    success: string;
     loading: boolean;
 }
 

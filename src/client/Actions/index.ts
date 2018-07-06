@@ -37,6 +37,13 @@ export const error = (message: string) => {
     };
 };
 
+export const success = (message: string) => {
+    return {
+        type: "SET_SUCCESS",
+        message
+    };
+};
+
 export const login = (): any => {
     return async (dispatch: Dispatch<State>) => {
         try {
@@ -103,11 +110,12 @@ export const submitShips = (guild: string, channel: string, ships: number[]): an
         });
 
         if (response.status !== 200) {
-            dispatch(error("Something went wrong. Run to the hills!"));
             dispatch(toggleLoading());
+            dispatch(error("Something went wrong. Run to the hills!"));
+        } else {
+            dispatch(toggleLoading());
+            dispatch(success("Alerts saved successfully!"));
         }
-
-        dispatch(toggleLoading());
     };
 };
 

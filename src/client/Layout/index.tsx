@@ -7,6 +7,7 @@ import UserCard from './UserCard';
 import SidebarMenu from './SidebarMenu';
 import LoginButton from './LoginButton';
 import ErrorModal from "./ErrorModal";
+import SuccessModal from './SuccessModal';
 
 class Layout extends React.Component<Props> {
     componentDidMount() {
@@ -17,6 +18,7 @@ class Layout extends React.Component<Props> {
         return (
             <div>
                 <ErrorModal display={this.props.error !== ""} />
+                <SuccessModal display={this.props.success !== ""} />
                 <Container className="layout">
                     <Grid divided={true} stackable={true}>
                         <Grid.Column width="3">
@@ -40,7 +42,8 @@ class Layout extends React.Component<Props> {
 
 interface Props {
     user: User;
-    error: string | undefined;
+    error: string;
+    success: string;
     loading: boolean;
     fetchUser: () => void;
 }
@@ -48,6 +51,7 @@ interface Props {
 const mapStateToProps = (state: State) => ({
     user: state.auth.user,
     error: state.general.error,
+    success: state.general.success,
     loading: state.general.loading
 });
 
