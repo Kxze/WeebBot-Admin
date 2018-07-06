@@ -3,8 +3,9 @@ import { connect, Dispatch } from "react-redux";
 import { Form, Checkbox, Button } from 'semantic-ui-react';
 import { State, User, Channel } from '../../types';
 import { getChannels, setShips } from "../../Actions";
+import ShipSelect from "./shipSelect";
 
-const Settings = ({ user, getServerChannels, serverChannels, setServerShips }: Props) => {
+const Settings = ({ user, getServerChannels, serverChannels, setServerShips, channelShips }: Props) => {
 
     const getServers = () => {
         if (!user.guilds) { return []; }
@@ -33,36 +34,7 @@ const Settings = ({ user, getServerChannels, serverChannels, setServerShips }: P
             <Form.Field>
                 <b>Ships:</b>
             </Form.Field>
-            <Form.Field>
-                <Checkbox toggle={true} label={<label>Ship 01</label>} />
-            </Form.Field>
-            <Form.Field>
-                <Checkbox toggle={true} label={<label>Ship 02</label>} />
-            </Form.Field>
-            <Form.Field>
-                <Checkbox toggle={true} label={<label>Ship 03</label>} />
-            </Form.Field>
-            <Form.Field>
-                <Checkbox toggle={true} label={<label>Ship 04</label>} />
-            </Form.Field>
-            <Form.Field>
-                <Checkbox toggle={true} label={<label>Ship 05</label>} />
-            </Form.Field>
-            <Form.Field>
-                <Checkbox toggle={true} label={<label>Ship 06</label>} />
-            </Form.Field>
-            <Form.Field>
-                <Checkbox toggle={true} label={<label>Ship 07</label>} />
-            </Form.Field>
-            <Form.Field>
-                <Checkbox toggle={true} label={<label>Ship 08</label>} />
-            </Form.Field>
-            <Form.Field>
-                <Checkbox toggle={true} label={<label>Ship 09</label>} />
-            </Form.Field>
-            <Form.Field>
-                <Checkbox toggle={true} label={<label>Ship 10</label>} />
-            </Form.Field>
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(i => <ShipSelect key={i} ship={i} />)}
             <Button type="submit">Save</Button>
         </Form>
     );
@@ -72,13 +44,15 @@ const Settings = ({ user, getServerChannels, serverChannels, setServerShips }: P
 interface Props {
     user: any;
     serverChannels: Channel[];
+    channelShips: number[];
     getServerChannels: (serverId: string) => void;
     setServerShips: (ships: number[]) => void;
 }
 
 const mapStateToProps = (state: State) => ({
     user: state.auth.user,
-    serverChannels: state.settings.channels
+    serverChannels: state.settings.channels,
+    channelShips: state.settings.ships,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<State>) => ({

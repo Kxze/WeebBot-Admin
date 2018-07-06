@@ -33,6 +33,7 @@ export interface Channel {
 
 export interface SettingsInfo {
     channels: Channel[];
+    ships: number[];
 }
 
 export interface GeneralInfo {

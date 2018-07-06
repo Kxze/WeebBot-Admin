@@ -1,6 +1,6 @@
 const initialState = {
     channels: [],
-    ships: [],
+    ships: []
 };
 
 export const settings = (state = initialState, action: any) => {
