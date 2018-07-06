@@ -77,6 +77,7 @@ export const getChannels = (serverId: string): any => {
             dispatch(setChannels(jsonData));
             dispatch(setServer(serverId));
         } else if (data.status === 403) {
+            dispatch(setServer(""));
             dispatch(error("Weeb Bot needs to be in your server!"));
         }
     };
