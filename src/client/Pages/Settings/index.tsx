@@ -34,7 +34,7 @@ const Settings = ({ user, getServerChannels, channel, serverChannels, setChannel
         <Form>
             <Form.Group widths="equal">
                 <Form.Select fluid={true} options={getServers()} label="Server" placeholder="Server" onChange={onSelectChange}/>
-                <Form.Select fluid={true} options={serverChannels} label="Channel" placeholder="Channel" onChange={onChannelSelect} />
+                <Form.Select fluid={true} disabled={!server} options={serverChannels} label="Channel" placeholder="Channel" onChange={onChannelSelect} />
             </Form.Group>
             <Form.Field>
                 <b>Ships:</b>
