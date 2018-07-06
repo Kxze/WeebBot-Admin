@@ -11,7 +11,10 @@ module.exports = {
 		filename: "bundle.js",
 		path: __dirname + "/public/"
 	},
-
+	watch: true,
+	watchOptions: {
+		poll: true
+	},
 	devtool: "source-map",
 
 	resolve: {
