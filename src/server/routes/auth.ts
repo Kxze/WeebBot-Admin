@@ -92,7 +92,7 @@ export default ({ server, db, config }: Router) => {
                     key: channel.id,
                     value: channel.id,
                     text: "#" + channel.name,
-                    ships: alert ? alert.ships.split(",").map(Number) : undefined,
+                    ships: alert ? alert.ships.split(",").map(Number) : [],
                 };
             });
 
