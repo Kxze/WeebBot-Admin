@@ -18,7 +18,7 @@
 		"redux-devtools-extension": "^2.13.2",
 		"redux-thunk": "^2.2.0",
 		"semantic-ui-css": "^2.3.1",
-		"semantic-ui-react": "^0.79.0"
+		"semantic-ui-react": "^0.81.3"
 	},
 	"devDependencies": {
 		"@types/cookie-parser": "^1.4.1",
@@ -49,7 +49,7 @@
 		"url-loader": "^1.0.1",
 		"webpack": "^4.4.1",
 		"webpack-cli": "^2.0.13",
-		"webpack-dev-server": "^3.1.1"
+		"webpack-dev-server": "^3.1.4"
 	},
 	"scripts": {
 		"dev": "concurrently \"webpack-dev-server\" \"tsc -w\" \"nodemon bin-server/server/server.js\""
