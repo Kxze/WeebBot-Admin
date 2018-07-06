@@ -43,3 +43,30 @@ export interface IChannel {
     channelId: number;
     ships: string;
 }
+
+export interface Guild {
+    id: string;
+    name: string;
+    icon: string;
+    owner: boolean;
+    permissions: number;
+}
+
+export interface User {
+    username: string;
+    discriminator: string;
+    mfa_enabled: boolean;
+    id: string;
+    avatar: string;
+}
+
+export interface Profile extends User {
+    guilds: Guild[];
+    avatarUrl?: string;
+}
+
+export interface DbUser {
+    id: number;
+    token: string;
+    discordId: string;
+}
