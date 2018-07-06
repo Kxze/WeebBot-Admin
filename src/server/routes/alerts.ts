@@ -47,7 +47,7 @@ export default ({ server, db, config }: Router) => {
       return res.status(403).json({ error: "Not the owner" });
     }
 
-    const ships = req.body.ships.filter((ship: any) => isNumber(ship) && 1 <= ship && ship < 10).join(",");
+    const ships = req.body.ships.filter((ship: any) => isNumber(ship) && 1 <= ship && ship <= 10).join(",");
 
     const alerts = await db("alerts").where({ guildId: req.body.guild });
     if (!alerts) {
