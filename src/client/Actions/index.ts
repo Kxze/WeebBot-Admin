@@ -57,6 +57,11 @@ export const login = (): any => {
     };
 };
 
+export const setServer = (serverId: string) => ({
+    type: "SET_SERVER",
+    server: serverId,
+});
+
 export const getChannels = (serverId: string): any => {
     return async (dispatch: Dispatch<State>) => {
         dispatch(toggleLoading());
@@ -70,11 +75,45 @@ export const getChannels = (serverId: string): any => {
         if (data.status === 200) {
             const jsonData = await data.json();
             dispatch(setChannels(jsonData));
+            dispatch(setServer(serverId));
         } else if (data.status === 403) {
             dispatch(error("Weeb Bot needs to be in your server!"));
         }
     };
 };
+
+export const submitShips = (guild: string, channel: string, ships: number[]): any => {
+    return async (dispatch: Dispatch<State>) => {
+        dispatch(toggleLoading());
+
+        const requestBody = {
+            guild,
+            channel,
+            ships
+        };
+
+        const response = await fetch("/api/guild", {
+            method: "PUT",
+            body: JSON.stringify(requestBody),
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (response.status !== 200) {
+            dispatch(error("Something went wrong. Run to the hills!"));
+            dispatch(toggleLoading());
+        }
+
+        dispatch(toggleLoading());
+    };
+};
+
+export const setStateChannel = (channelId: string) => ({
+    type: "SET_CHANNEL",
+    channel: channelId,
+});
 
 export const toggleLoading = () => ({
     type: "TOGGLE_LOADING"

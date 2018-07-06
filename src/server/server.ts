@@ -7,6 +7,7 @@ import * as passport from "passport";
 import * as cookieParser from "cookie-parser";
 import * as session from "express-session";
 import { cors } from "./middlewares";
+import * as bodyParser from "body-parser";
 
 const server = express();
 const config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
@@ -18,6 +19,7 @@ const db = knex({
 // Middlewares
 server.use(cors("http://localhost:8080"));
 server.use(cookieParser());
+server.use(bodyParser.json());
 server.use(session({
     secret: 'weebbot',
     resave: false,

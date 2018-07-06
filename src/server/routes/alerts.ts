@@ -41,21 +41,22 @@ export default ({ server, db, config }: Router) => {
 
   server.put("/api/guild/", async (req, res) => {
     if (!req.user) { return res.status(401).json({ error: "Log in" }); }
-    if (!req.body || !req.body.guild || !req.body.channels || !req.body.ships) { return res.status(400).send(); }
+    if (!req.body || !req.body.guild || !req.body.channel || !req.body.ships) { return res.status(400).send(); }
 
     if (!req.user.guilds.some((guild: Guild) => guild.id === req.body.guild)) {
       return res.status(403).json({ error: "Not the owner" });
     }
 
-    const ships = req.body.ships.filter((ship: any) => isNumber(ship) && 1 < ship && ship < 10).join(",");
+    const ships = req.body.ships.filter((ship: any) => isNumber(ship) && 1 <= ship && ship < 10).join(",");
 
     const alerts = await db("alerts").where({ guildId: req.body.guild });
     if (!alerts) {
-      await db("alerts").insert({ guildId: req.body.guild, ships });
+      await db("alerts").insert({ guildId: req.body.guild, channelId: req.body.channel, ships });
     } else {
-      await db("alerts").update({ guildId: req.body.guild, ships });
+      await db("alerts").update({ guildId: req.body.guild, channelId: req.body.channel, ships });
     }
 
     return res.status(200).send();
   });
+
 };

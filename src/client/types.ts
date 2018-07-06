@@ -34,6 +34,8 @@ export interface Channel {
 export interface SettingsInfo {
     channels: Channel[];
     ships: number[];
+    server: string;
+    channel: string;
 }
 
 export interface GeneralInfo {
