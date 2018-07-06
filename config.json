@@ -5,13 +5,15 @@
     "db": {
         "host": "localhost",
         "user": "root",
-        "password": "Emiolo123*",
+        "password": "",
         "database": "weebbot"
     },
     "discord": {
         "clientID": "347766221111951377",
-        "clientSecret": "5KDmQJA1qMt9uhpZpVRHATmhXBegRdnK",
+        "clientSecret": "LYfnrocGV41BSTU-KU_CLEDYAefeEOqU",
         "callbackURL": "http://localhost:3000/api/auth/discord/callback",
+        "token": "MTk4NDgwMDAxNDgwMzkyNzA0.DiAtNw.veESQxuubr9rTI4iWPBppbe93UE",
         "scope": ["guilds", "identify"]
-    }
+    },
+    "frontUrl": "http://localhost:8080"
 }

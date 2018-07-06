@@ -23,7 +23,7 @@ export default ({ server, db, config }: Router) => {
 
     server.get("/api/auth/discord", passport.authenticate('discord', { scope: config.discord.scopes }));
     server.get('/api/auth/discord/callback', passport.authenticate('discord'), (req, res) => {
-        res.redirect("http://localhost:8080/");
+        res.redirect(config.frontUrl);
     });
 
     server.get("/api/me", async (req, res) => {

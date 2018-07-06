@@ -29,6 +29,7 @@ interface ConfigObject {
     server: ServerConfigObject;
     db: DatabaseConfigObject;
     bot: BotConfigObject;
+    frontUrl: string;
 }
 
 export interface Router {
