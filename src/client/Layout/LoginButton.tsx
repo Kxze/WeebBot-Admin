@@ -5,7 +5,7 @@ import { Button } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 
 const LoginButton = ({ dispatch }: any) => (
-    <Button onClick={() => window.location.href = "http://localhost:3000/api/auth/discord"}>Login</Button>
+    <Button onClick={() => window.location.href = "http://wb.rodrigo.li/api/auth/discord"}>Login</Button>
 );
 
 export default connect()(LoginButton);
