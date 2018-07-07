@@ -42,7 +42,7 @@ jobs:
       - run:
           name: Deploy front to server
           command: |
-            rsync -avHr /tmp/public/ -e ssh circleci@104.196.160.41:/apps/WeebBot-Admin/public
+            rsync -avHr /tmp/public/ -e ssh circleci2@104.196.160.41:/apps/WeebBot-Admin/public
 workflows:
   version: 2
   build-and-deploy:
