@@ -52,7 +52,7 @@ module.exports = {
 			"/api": "http://localhost:3000"
 		}
 	},
-	mode: "development",
+	mode: process.env.WEBPACK_MODE === "dev" ? "development" : "production",
 	performance: {
 		hints: false
 	}
