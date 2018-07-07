@@ -55,6 +55,7 @@
 	},
 	"scripts": {
 		"dev": "concurrently \"webpack-dev-server\" \"tsc -w\" \"nodemon bin-server/server/server.js\"",
-		"start": "webpack && tsc && node bin-server/server/server.js"
+		"build": "webpack",
+		"start": "tsc && node bin-server/server/server.js"
 	}
 }
