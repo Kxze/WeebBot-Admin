@@ -44,9 +44,25 @@ export interface GeneralInfo {
     loading: boolean;
 }
 
+export interface HomeInfo {
+    eq?: EQAlert;
+}
+
 export interface State {
     auth: AuthenticationInfo;
     sidebar: SidebarInfo;
     settings: SettingsInfo;
     general: GeneralInfo;
+    home: HomeInfo;
+}
+
+export interface EQ {
+    name: string;
+    jpName: string;
+    ship: number;
+}
+
+export interface EQAlert {
+    when: string;
+    eq: EQ;
 }

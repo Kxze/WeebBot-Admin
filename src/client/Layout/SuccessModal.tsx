@@ -6,12 +6,12 @@ import { success } from "../Actions";
 
 const SuccessModal = ({ display, successMessage, setSuccess }: Props) => (
     <Modal basic={true} size="small" open={display}>
-        <Header icon="erase" content="Success!" />
+        <Header icon="check" content="Success!" />
         <Modal.Content>
             {successMessage}
         </Modal.Content>
         <Modal.Actions>
-            <Button basic={true} color="green" inverted={true} onClick={() => setSuccess("")}>
+            <Button basic={true} color="green" onClick={() => setSuccess("")}>
                 Close
             </Button>
         </Modal.Actions>

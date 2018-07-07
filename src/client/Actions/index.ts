@@ -1,6 +1,7 @@
 import { State } from "../types";
 import { connect, Dispatch } from "react-redux";
 import { ThunkAction } from 'redux-thunk';
+import * as moment from "moment";
 
 const setUser = (user: any) => {
     return {
@@ -115,6 +116,30 @@ export const submitShips = (guild: string, channel: string, ships: number[]): an
         } else {
             dispatch(toggleLoading());
             dispatch(success("Alerts saved successfully!"));
+        }
+    };
+};
+
+export const setEq = (eq: any) => ({
+    type: "SET_EQ",
+    eq
+});
+
+export const getEq = (): any => {
+    return async (dispatch: Dispatch<State>) => {
+        const response = await fetch("http://pso2.rodrigo.li/eq/", {
+            mode: "cors",
+        });
+
+        if (response.status !== 200) { return; }
+        const data = await response.json();
+        const eq = data[0];
+
+        if (moment.utc(eq.when).add(30, "minutes") < moment.utc()) {
+            dispatch(setEq({
+                when: eq.when,
+                eq: eq.eqs.find((eq: any) => eq.ship === 2),
+            }));
         }
     };
 };
