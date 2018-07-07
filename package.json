@@ -54,6 +54,7 @@
 		"webpack-dev-server": "^3.1.4"
 	},
 	"scripts": {
-		"dev": "concurrently \"webpack-dev-server\" \"tsc -w\" \"nodemon bin-server/server/server.js\""
+		"dev": "concurrently \"webpack-dev-server\" \"tsc -w\" \"nodemon bin-server/server/server.js\"",
+		"start": "webpack && tsc && node bin-server/server/server.js"
 	}
 }

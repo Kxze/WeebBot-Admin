@@ -28,6 +28,7 @@ server.use(session({
 }));
 server.use(passport.initialize() as any);
 server.use(passport.session());
+server.use("/", express.static(path.join(__dirname, "../../", "public")));
 
 // Routes
 function loadRoute(file: string): any {
