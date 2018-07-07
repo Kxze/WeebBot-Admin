@@ -15,7 +15,7 @@ const SidebarMenu = ({ activeItem, changeSidebarItem }: Props) => {
         <Menu pointing={true} vertical={true} fluid={true}>
             <Menu.Item name="home" active={activeItem === 'home'} onClick={() => changeSidebarItem("home")} as={Link} to="/" />
             <Menu.Item name="settings" active={activeItem === 'settings'} onClick={() => changeSidebarItem("settings")} as={Link} to="/settings" />
-            <Menu.Item name="invite" active={false} onClick={openInvite} />
+            <Menu.Item name="Invite WeebBot" active={false} onClick={openInvite} />
         </Menu>
     );
 };

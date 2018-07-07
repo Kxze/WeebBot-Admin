@@ -33,7 +33,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "13:bf:9b:94:92:e9:7b:e3:72:cc:ab:0d:4d:75:e8:1a"
+            - "ae:2d:6e:d3:23:93:d9:49:54:0f:07:e3:a5:05:7b:8a"
       - run:
           name: Install rsync
           command: sudo apt install rsync -y
