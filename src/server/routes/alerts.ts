@@ -49,11 +49,13 @@ export default ({ server, db, config }: Router) => {
 
     const ships = req.body.ships.filter((ship: any) => isNumber(ship) && 1 <= ship && ship <= 10).join(",");
 
-    const alerts = await db("alerts").where({ guildId: req.body.guild });
-    if (!alerts) {
+    const alerts = await db("alerts").where({ guildId: req.body.guild, channelId: req.body.channel });
+    if (alerts.length === 0) {
       await db("alerts").insert({ guildId: req.body.guild, channelId: req.body.channel, ships });
     } else {
-      await db("alerts").update({ guildId: req.body.guild, channelId: req.body.channel, ships });
+      await db("alerts")
+        .update({ ships })
+        .where({ guildId: req.body.guild, channelId: req.body.channel });
     }
 
     return res.status(200).send();
