@@ -11,10 +11,6 @@ module.exports = {
 		filename: "bundle.js",
 		path: __dirname + "/public/"
 	},
-	watch: true,
-	watchOptions: {
-		poll: true
-	},
 	devtool: "source-map",
 
 	resolve: {
@@ -38,8 +34,7 @@ module.exports = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			inject: true,
-			template: path.join(__dirname, "public", "index.html"),
+			template: path.join(__dirname, "public", "template.html")
 		}),
 		new webpack.NamedModulesPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
